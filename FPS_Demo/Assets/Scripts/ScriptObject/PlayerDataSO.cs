@@ -9,4 +9,16 @@ public class PlayerDataSO : ScriptableObject
     public int maxHealth = 5;
 
     public int attack;
+    public bool isDead = false;
+
+    public void Init()
+    {
+        currentHealth = maxHealth;
+        isDead = false;
+    }
+
+    public string HPShow()
+    {
+        return currentHealth.ToString() + " / " + maxHealth.ToString();
+    }
 }

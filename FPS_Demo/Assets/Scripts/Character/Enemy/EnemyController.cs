@@ -10,13 +10,16 @@ public class EnemyController : MonoBehaviour
 {
     public EnemyDataSO _enemyData;
     private Transform target;
-    private float _rotate = 10f;
     private float _speed = 4f;
+
+    private float stoppingDistance = 1.5f;//目标停止距离
+    private bool isMoving = true; //是否正在移动
     
 
     private void Start()
     {
-        _enemyData.currentHealth = 4;
+        //让生成出来的敌人的当前生命值为最大生命值
+        _enemyData.currentHealth = _enemyData.maxHealth;
     }
 
     void Update()
@@ -24,7 +27,8 @@ public class EnemyController : MonoBehaviour
         MoveToPlayer();
         if (_enemyData.currentHealth <=0)
         {
-            Destroy(gameObject);
+            _enemyData.IsDead = true;
+            EnemyManager.Instance.EnemyDie(gameObject);
             EnemyManager.Instance.currentEnemyCount--;
         }
     }
@@ -33,17 +37,34 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            _enemyData.currentHealth--;
+            BaseWeapon weapon = other.GetComponent<BaseWeapon>();
+            if (weapon != null)
+            {
+                int damage = weapon.weaponData.damage;
+                _enemyData.currentHealth -= damage;
+            }
         }
     }
 
     
     private void MoveToPlayer()
     {
-        Vector3 direction = target.transform.position - transform.position;
+        if (isMoving)
+        {
+            float distanceToPlayer = Vector3.Distance(target.position, transform.position);
+            if (distanceToPlayer < stoppingDistance)
+            {
+                isMoving = false;
+                //TODO:敌人攻击
+            }
+            else
+            {
+                Vector3 direction = target.transform.position - transform.position;
 
-        direction.Normalize();
-        transform.Translate( direction * (_speed * Time.deltaTime));
+                direction.Normalize();
+                transform.Translate( direction * (_speed * Time.deltaTime));
+            }
+        }
     }
     
     public void SetTarget(Transform targetTransform)

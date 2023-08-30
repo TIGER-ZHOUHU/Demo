@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol_Bullet : MonoBehaviour
+public class Pistol_Bullet : Pistol
 {
+    
     void Start () {
         Destroy(gameObject, 5f);  //5s后销毁自身
     }

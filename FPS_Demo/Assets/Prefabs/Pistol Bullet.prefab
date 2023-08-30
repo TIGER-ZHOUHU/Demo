@@ -127,3 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c64ef9e936e57419595a5fd18f4e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 53544093d25614946b1b8919e91c4deb, type: 2}
+  shootPoint: {fileID: 0}

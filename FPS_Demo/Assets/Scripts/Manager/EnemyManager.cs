@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private EnemyDataCollection enemyDataCollection;
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header("Enemy Count")]
     private int maxEnemyCount = 10;
@@ -23,10 +25,14 @@ public class EnemyManager : MonoBehaviour
     [Header("Timer")] 
     private float spawnTimeMax = 0.5f;
     private float currentTime;
+
+    private int playerScore = 0;
+
     
     private void Awake()
     {
         Instance = this;
+        enemyDataCollection.SetEnemyData();
     }
 
     private void Update()
@@ -38,13 +44,16 @@ public class EnemyManager : MonoBehaviour
             currentTime = 0f;
         }
     }
-    
+
+    #region 生成敌人
+
     private void SpawnerEnemy()
     {
         //随机选择一个敌人数据
-        int randomIndex = Random.Range(0, enemyDataCollection.enemyDataArray.Length);
-        EnemyDataSO enemyData = enemyDataCollection.enemyDataArray[randomIndex];
         
+        //int randomIndex = Random.Range(0, enemyDataCollection.enemyDataArray.Length);
+        EnemyDataSO enemyData = enemyDataCollection.GetOneEnemyData();
+
         Vector3 spawmPosition = GetRandomSpawnPosition();
         if (IsPositionValid(spawmPosition))
         {
@@ -79,4 +88,19 @@ public class EnemyManager : MonoBehaviour
         }
         return true;
     }
+
+    #endregion
+
+    #region 敌人死亡
+
+    public void EnemyDie(GameObject obj)
+    {
+        Destroy(obj);
+        //TODO:不同敌人加不同的分数
+        playerScore++;
+        scoreText.text = playerScore.ToString();
+    }
+
+    #endregion
+
 }

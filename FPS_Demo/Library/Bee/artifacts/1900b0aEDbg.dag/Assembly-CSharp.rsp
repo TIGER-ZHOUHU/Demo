@@ -361,8 +361,10 @@
 "Assets/Scripts/ScriptObject/EnemyDataCollection.cs"
 "Assets/Scripts/ScriptObject/EnemyDataSO.cs"
 "Assets/Scripts/ScriptObject/PlayerDataSO.cs"
+"Assets/Scripts/Weapon/BaseWeapon.cs"
 "Assets/Scripts/Weapon/Bullet/Pistol_Bullet.cs"
 "Assets/Scripts/Weapon/Pistol.cs"
+"Assets/Scripts/Weapon/WeaponDataSO.cs"
 -langversion:9.0
 
 /deterministic

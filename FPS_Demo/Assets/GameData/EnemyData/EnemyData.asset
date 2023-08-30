@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 4
   maxHealth: 4
+  Id: 0
+  IsDead: 0

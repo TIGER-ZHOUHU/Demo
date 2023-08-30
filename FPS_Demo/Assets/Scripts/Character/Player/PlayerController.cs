@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,14 +10,42 @@ public class PlayerController : MonoBehaviour
     [Header("GameObject")]
     [SerializeField] private GameObject player;
 
+    [SerializeField] private PlayerDataSO playerData;
+
+    [SerializeField] private TextMeshProUGUI hpText;
+
     [Header("Transform")]
     private float m_speed = 5f;
     private float m_rotate = 10f;
- 
+
+    private void Awake()
+    {
+        playerData.Init();
+    }
+
     void Update()
     {
         //键盘控制移动
         PlayerMove_KeyTransform();
+        PlayerState();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            playerData.currentHealth--;
+            hpText.text = playerData.HPShow();
+        }
+    }
+    
+    private void PlayerState()
+    {
+        if (playerData.currentHealth < 0)
+        {
+            playerData.isDead = true;
+            Destroy(gameObject);
+        }
     }
     
     //通过Transform组件 键盘控制移动
@@ -47,4 +78,6 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput) * (m_speed * Time.deltaTime);
         transform.position += movement;
     }
+
+
 }
