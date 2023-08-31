@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 976181059}
   m_Layer: 0
   m_Name: Point
-  m_TagString: Untagged
+  m_TagString: BulletPosition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976181058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.36, y: 0, z: 1.151}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 1291542070763284078}
   - component: {fileID: 1291542070763284075}
   - component: {fileID: 2351081662301067563}
+  - component: {fileID: 2800788519685457493}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -161,7 +162,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 19a404a78e3632c44b9775ebd296fc5a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -179,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1291542070763283986}
   playerData: {fileID: 11400000, guid: 371569b643483564897a9bfa069fcc94, type: 2}
-  hpText: {fileID: 0}
+  playerHp: {fileID: 0}
 --- !u!54 &2351081662301067563
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -191,11 +192,31 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!95 &2800788519685457493
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291542070763283986}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba2f1e2bdd2667240bfae34aee7cd47d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5243485162556583644
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +260,7 @@ GameObject:
   - component: {fileID: 4266637390870312465}
   - component: {fileID: 3965388241726824427}
   - component: {fileID: 2467884678314050466}
+  - component: {fileID: 1364181105}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -325,3 +347,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1364181105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295589786003131899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0cbf00af0745449ac6a630d59abced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 53544093d25614946b1b8919e91c4deb, type: 2}

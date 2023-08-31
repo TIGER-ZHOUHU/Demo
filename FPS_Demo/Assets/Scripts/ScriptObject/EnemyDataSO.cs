@@ -7,6 +7,7 @@ public class EnemyDataSO : ScriptableObject
     public int currentHealth;
     public int maxHealth = 4;
     public int Id;
+    public int atk;
 
     public bool IsDead;
 }

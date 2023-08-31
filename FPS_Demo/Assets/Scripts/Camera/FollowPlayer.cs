@@ -24,7 +24,16 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //让摄像机的位置 = 人物行走的位置 + 与偏移量的相加
-        transform.position = offsetPosition + player.position;
+        if (player)
+        {
+            //让摄像机的位置 = 人物行走的位置 + 与偏移量的相加
+            transform.position = offsetPosition + player.position;
+        }
+        else
+        {
+            transform.position = offsetPosition;
+        }
+        
+
     }
 }

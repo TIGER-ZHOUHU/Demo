@@ -38,7 +38,7 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         currentTime += Time.deltaTime;
-        if (currentEnemyCount < maxEnemyCount && currentTime > spawnTimeMax)
+        if (currentEnemyCount < maxEnemyCount && currentTime > spawnTimeMax && playerTransform)
         {
             SpawnerEnemy();
             currentTime = 0f;

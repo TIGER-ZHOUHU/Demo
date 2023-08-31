@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,7 +8,7 @@ public class Pistol : BaseWeapon
 {
     //用来存储当前时间
     private float Timing = 2f;
-    // Update is called once per frame
+
     void Update()
     {
         Timing += Time.deltaTime;
@@ -17,7 +18,7 @@ public class Pistol : BaseWeapon
         }
     }
 
-    public void PistolShoot()
+    private void PistolShoot()
     {
         if (Timing >= weaponData.interval)
         {

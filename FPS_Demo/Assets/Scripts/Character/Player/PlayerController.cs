@@ -7,20 +7,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+    
     [Header("GameObject")]
     [SerializeField] private GameObject player;
 
     [SerializeField] private PlayerDataSO playerData;
 
-    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private PlayerHpUI playerHp;
+    private Animator _animator;
 
     [Header("Transform")]
-    private float m_speed = 5f;
+    private float m_speed = 8f;
     private float m_rotate = 10f;
 
     private void Awake()
     {
         playerData.Init();
+        instance = this;
+    }
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -34,8 +43,18 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            playerData.currentHealth--;
-            hpText.text = playerData.HPShow();
+            EnemyController enemy = collision.collider.GetComponent<EnemyController>();
+            Transform enemyTransform = collision.collider.GetComponent<Transform>();
+            if (enemy)
+            {
+                playerData.currentHealth -= enemy._enemyData.atk;
+                playerHp.SetHpShowUI(playerData);
+                _animator.SetTrigger("Hurt");
+                Vector3 dir = enemyTransform.position - transform.position;
+                dir.Normalize();
+
+                transform.position = Vector3.Lerp(transform.position,transform.position - new Vector3(dir.x,0,dir.z),0.1f);
+            }
         }
     }
     
