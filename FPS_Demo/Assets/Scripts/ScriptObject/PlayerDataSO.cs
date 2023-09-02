@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class PlayerDataSO : ScriptableObject
 
     public int attack;
     public bool isDead = false;
+    
+
+    
 
     public void Init()
     {

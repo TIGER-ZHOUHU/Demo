@@ -17,8 +17,14 @@ public class EnemyController : MonoBehaviour
     private bool isMoving = true; //是否正在移动
 
     private int enemyAtk = 1;
+    private AudioSource audioSource;
+    [SerializeField]private AudioClip getHurt;
+    
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = getHurt;
+        
         _animator = GetComponent<Animator>();
         //让生成出来的敌人的当前生命值为最大生命值
         _enemyData.currentHealth = _enemyData.maxHealth;
@@ -41,11 +47,12 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            BaseWeapon weapon = other.GetComponent<BaseWeapon>();
+            Pistol_Bullet weapon = other.GetComponent<Pistol_Bullet>();
             if (weapon != null)
             {
-                _enemyData.currentHealth -= weapon.weaponData.damage;
+                _enemyData.currentHealth -= (weapon.weaponData.damage + PlayerController.instance.PlayerAttack());
                 _animator.SetTrigger("Hurt");
+                audioSource.Play();
             }
         }
     }

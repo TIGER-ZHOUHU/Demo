@@ -3,17 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol_Bullet : Pistol
+public class Pistol_Bullet : MonoBehaviour
 {
-    void Start () {
-        Destroy(gameObject, 5f);  //5s后销毁自身
+    public WeaponDataSO weaponData;
+
+    [SerializeField] private AudioClip[] _audioAtack;
+    private AudioSource _audioSource;
+    private void OnEnable()
+    {
+        StartCoroutine(DelayRecycle());
+    }
+    
+    private IEnumerator DelayRecycle()
+    {
+        yield return new WaitForSeconds(3f);
+        ObjectPool.instance.ReturnBullet(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+            ObjectPool.instance.ReturnBullet(gameObject);
         }
     }
 }

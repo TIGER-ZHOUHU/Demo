@@ -15,5 +15,4 @@ MonoBehaviour:
   weaponName: Pistol
   damage: 2
   isLongRange: 1
-  interval: 1
-  bulletPrefab: {fileID: 3052747906423383896, guid: ad600adbb154a1d43b5912ae6719d523, type: 3}
+  interval: 0.5

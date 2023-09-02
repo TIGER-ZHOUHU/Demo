@@ -362,11 +362,11 @@
 "Assets/Scripts/ScriptObject/EnemyDataCollection.cs"
 "Assets/Scripts/ScriptObject/EnemyDataSO.cs"
 "Assets/Scripts/ScriptObject/PlayerDataSO.cs"
+"Assets/Scripts/ScriptObject/WeaponDataSO.cs"
 "Assets/Scripts/UI/PlayerHpUI.cs"
-"Assets/Scripts/Weapon/BaseWeapon.cs"
+"Assets/Scripts/UI/PlayerShootStateUI.cs"
 "Assets/Scripts/Weapon/Bullet/Pistol_Bullet.cs"
 "Assets/Scripts/Weapon/Pistol.cs"
-"Assets/Scripts/Weapon/WeaponDataSO.cs"
 -langversion:9.0
 
 /deterministic

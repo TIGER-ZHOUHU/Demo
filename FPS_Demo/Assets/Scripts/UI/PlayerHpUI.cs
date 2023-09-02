@@ -15,6 +15,4 @@ public class PlayerHpUI : MonoBehaviour
         hpImage.fillAmount = (float)playerData.currentHealth / playerData.maxHealth;
         hpText.text = playerData.currentHealth + " / " + playerData.maxHealth;
     }
-    
-
 }

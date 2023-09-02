@@ -1,74 +1,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class ObjectPool : MonoBehaviour
 {
-    public static ObjectPool poolInstance;
+    public static ObjectPool instance;
+    public GameObject bulletPrefab;
+    private int poolSize = 30;
 
-    public GameObject Object;
-
-    public Queue<GameObject> objectPool = new Queue<GameObject>();
-
-    public int defaultCount = 16;
-
-    public int maxCount = 25;
+    [SerializeField]
+    private List<GameObject> bulletPool;
 
     private void Awake()
     {
-        poolInstance = this;
-    }
-
-    // 对池子进行初始化（创建初始容量个数的物体）
-    public void Init()
-    {
-        GameObject obj;
-        for (int i = 0; i < defaultCount; i++)
+        instance = this;
+        //初始化对象池
+        for (int i = 0; i < poolSize; i++)
         {
-            obj = Instantiate(Object, this.transform);
-            // 将生成的对象入队
-            objectPool.Enqueue(obj);
-            obj.SetActive(false);
+            GameObject bullet = Instantiate(bulletPrefab);
+            bullet.transform.position = Vector3.zero;
+            bullet.SetActive(false);
+            bulletPool.Add(bullet);
         }
     }
-    // 从池子中取出物体
-    public GameObject Get()
+    
+    public GameObject GetBullet()
     {
-        GameObject tmp;
-        // 如果池子内有物体，从池子取出一个物体
-        if (objectPool.Count > 0)
+        //从对象池中获取可用的子弹对象
+        for (int i = 0; i < bulletPool.Count; i++)
         {
-            // 将对象出队
-            tmp = objectPool.Dequeue();
-            tmp.SetActive(true);
-        }
-        // 如果池子中没有物体，直接新建一个物体
-        else
-        {
-            tmp = Instantiate(Object, this.transform);
-        }
-        return tmp;
-    }
-    // 将物体回收进池子
-    public void Remove(GameObject obj)
-    {
-        // 池子中的物体数目不超过最大容量
-        if (objectPool.Count <= maxCount)
-        {
-            // 该对象没有在队列中
-            if (!objectPool.Contains(obj))
+            if (!bulletPool[i].activeInHierarchy)
             {
-                // 将对象入队
-                objectPool.Enqueue(obj);
-                obj.SetActive(false);
+                bulletPool[i].SetActive(true);
+                return bulletPool[i];
             }
         }
-        // 超过最大容量就销毁
-        else
-        {
-            Destroy(obj);
-        }
+        //如果对象池中没有可用的子弹对象，则创建一个新的子弹对象并添加到对象池中
+        GameObject newBullet = Instantiate(bulletPrefab);
+        bulletPool.Add(newBullet);
+        return newBullet;
     }
+
+    public void ReturnBullet(GameObject bullet)
+    {
+        bullet.transform.position = Vector3.zero;
+        bullet.transform.rotation = Quaternion.identity;
+        // 将子弹对象回收到对象池中
+        bullet.SetActive(false);
+    }
+    
 }

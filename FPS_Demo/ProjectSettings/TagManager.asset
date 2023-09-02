@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - BulletPosition
   - Weapon
+  - BulletPool
   layers:
   - Default
   - TransparentFX
