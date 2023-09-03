@@ -29,11 +29,9 @@ public class Pistol : MonoBehaviour
         pistolShoot.clip = fire[0];
     }
 
-    public void SwitchClip(ShootState shootState)
+    public void SwitchClip(int shootStateIndex)
     {
-        int index = (int)shootState;
-        Debug.Log(index);
-        pistolShoot.clip = fire[index];
+        pistolShoot.clip = fire[shootStateIndex];
     }
     public void Shoot(bool isCool, Transform player)
     {

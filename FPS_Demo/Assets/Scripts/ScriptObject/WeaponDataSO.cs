@@ -16,6 +16,7 @@ public class WeaponDataSO : ScriptableObject
     public bool isLongRange;
     //武器攻击间隔
     public float interval = 1f;
+    //已经造成过伤害
     //子弹预制体
     //public GameObject bulletPrefab;
     //子弹出发位置

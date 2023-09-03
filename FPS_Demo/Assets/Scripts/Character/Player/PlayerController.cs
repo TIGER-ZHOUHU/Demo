@@ -13,14 +13,16 @@ public enum  ShootState
 
 public enum BulletState
 {
-    normal,
-    explode,
-    laser
+    Normal,
+    Explode,
+    Laser
     
 }
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
+    
+    public event Action<int> OnBulletStateChange;
     
     [Header("GameObject")]
     [SerializeField] private GameObject player;
@@ -29,12 +31,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private PlayerHpUI playerHp;
     [SerializeField] private PlayerShootStateUI playerShootStateUI;
-    private Animator _animator;
-    private Camera _mainCamera;
-    
     [SerializeField] private AudioClip playerHurt;
 
+    private Animator _animator;
+    private Camera _mainCamera;
     private AudioSource _audioSource;
+    
     [Header("Transform")]
     private float m_speed = 8f;
     private float m_rotate = 10f;
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     //射击状态
     private ShootState _shootState;
-    private int _shootStateCount = 3;
+    private int _shootStateCount = 1;
 
     private BulletState _bulletState;
     private int _bulletStateCount = 3;
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
         
         _audioSource.clip = playerHurt;
         _shootState = ShootState.Single;
+        _bulletState = BulletState.Normal;
         
         playerHp.SetHpShowUI(playerData);
         playerShootStateUI.SetPlayerShootStateUI(_shootState);
@@ -82,13 +85,34 @@ public class PlayerController : MonoBehaviour
         {
             PlayerShoot(_shootState);
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SwitchToNextBulletState();
+        }
     }
 
+    private void SwitchToNextBulletState()
+    {
+        int nextStateIndex = ((int)_bulletState + 1) % _bulletStateCount;
+        _bulletState = (BulletState)nextStateIndex;
+        OnBulletStateChange?.Invoke(nextStateIndex);
+    }
     private void SwitchToNextShootState()
     {
-        int nextStateIndex = ((int)_shootState + 1) % _shootStateCount;
+        int nextStateIndex;
+        if (GameManager.instance.GetIsTreble())
+        {
+            _shootStateCount = 2;
+        }
+        if (GameManager.instance.GetIsContinous())
+        {
+            _shootStateCount = 3;
+        }
+        nextStateIndex = ((int)_shootState + 1) % _shootStateCount;
+
         _shootState = (ShootState)nextStateIndex;
-        Pistol.instance.SwitchClip(_shootState);
+        Pistol.instance.SwitchClip(nextStateIndex);
         playerShootStateUI.SetPlayerShootStateUI(_shootState);
     }
     private void PlayerShoot(ShootState state)
@@ -146,7 +170,7 @@ public class PlayerController : MonoBehaviour
             Transform enemyTransform = collision.collider.GetComponent<Transform>();
             if (enemy)
             {
-                playerData.currentHealth -= enemy._enemyData.atk;
+                playerData.currentHealth -= enemy.GetEnemyAtk();
                 playerHp.SetHpShowUI(playerData);
                 _animator.SetTrigger("Hurt");
                 _audioSource.Play();
@@ -212,6 +236,13 @@ public class PlayerController : MonoBehaviour
     public int PlayerAttack()
     {
         return playerData.attack;
+    }
+
+    public void SetPlayerLevel(int atkLevel,int maxHealthLevel)
+    {
+        playerData.attack += atkLevel;
+        playerData.maxHealth += maxHealthLevel;
+        playerData.currentHealth = playerData.maxHealth;
     }
     
 }

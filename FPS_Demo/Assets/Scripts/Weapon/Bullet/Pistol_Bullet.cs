@@ -6,11 +6,33 @@ using UnityEngine;
 public class Pistol_Bullet : MonoBehaviour
 {
     public WeaponDataSO weaponData;
-
+    
     [SerializeField] private AudioClip[] _audioAtack;
     private AudioSource _audioSource;
+    public bool isDamaged = false;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        _audioSource.clip = _audioAtack[0];
+        PlayerController.instance.OnBulletStateChange += InstanceOnOnBulletStateChange;
+    }
+
+    private void InstanceOnOnBulletStateChange(int bulletStateIndex)
+    {
+        SwitchClip(bulletStateIndex);
+    }
+    private void SwitchClip(int bulletStateIndex)
+    {
+        _audioSource.clip = _audioAtack[bulletStateIndex];
+    }
     private void OnEnable()
     {
+        isDamaged = false;
         StartCoroutine(DelayRecycle());
     }
     
@@ -24,7 +46,16 @@ public class Pistol_Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            ObjectPool.instance.ReturnBullet(gameObject);
+            _audioSource.Play();
+            StartCoroutine(WaitForAudioEnd());
         }
     }
+
+    private IEnumerator WaitForAudioEnd()
+    {
+        yield return new WaitForSeconds(_audioSource.clip.length/40);
+        
+        ObjectPool.instance.ReturnBullet(gameObject);
+    }
+
 }

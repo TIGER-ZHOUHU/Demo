@@ -10,7 +10,6 @@ public class PlayerShootStateUI : MonoBehaviour
 
     public void SetPlayerShootStateUI(ShootState state)
     {
-        Debug.Log(state);
         shootStateUI.text = Enum.GetName(typeof(ShootState),state);
     }
 }

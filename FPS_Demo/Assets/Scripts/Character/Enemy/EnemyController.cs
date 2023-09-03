@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,6 +18,9 @@ public class EnemyController : MonoBehaviour
     private bool isMoving = true; //是否正在移动
 
     private int enemyAtk = 1;
+    private int maxHealth = 4;
+    private int currentHealth = 4;
+
     private AudioSource audioSource;
     [SerializeField]private AudioClip getHurt;
     
@@ -27,17 +31,17 @@ public class EnemyController : MonoBehaviour
         
         _animator = GetComponent<Animator>();
         //让生成出来的敌人的当前生命值为最大生命值
-        _enemyData.currentHealth = _enemyData.maxHealth;
-        _enemyData.atk = enemyAtk;
-        
+        maxHealth = _enemyData.maxHealth;
+        currentHealth = maxHealth;
+        enemyAtk = _enemyData.atk;
+
     }
 
     void Update()
     {
         MoveToPlayer();
-        if (_enemyData.currentHealth <=0)
+        if (currentHealth <=0)
         {
-            _enemyData.IsDead = true;
             EnemyManager.Instance.EnemyDie(gameObject);
             EnemyManager.Instance.currentEnemyCount--;
         }
@@ -48,13 +52,16 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("Bullet"))
         {
             Pistol_Bullet weapon = other.GetComponent<Pistol_Bullet>();
-            if (weapon != null)
+            if (weapon != null && !weapon.isDamaged)
             {
-                _enemyData.currentHealth -= (weapon.weaponData.damage + PlayerController.instance.PlayerAttack());
+                currentHealth -= (weapon.weaponData.damage + PlayerController.instance.PlayerAttack());
+                Debug.Log(currentHealth);
                 _animator.SetTrigger("Hurt");
                 audioSource.Play();
+                weapon.isDamaged = true;
             }
         }
+        
     }
     public void SetTarget(Transform targetTransform)
     {
@@ -86,7 +93,10 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-    
 
+    public int GetEnemyAtk()
+    {
+        return enemyAtk;
+    }
     
 }

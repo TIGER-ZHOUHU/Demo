@@ -365,6 +365,7 @@
 "Assets/Scripts/ScriptObject/WeaponDataSO.cs"
 "Assets/Scripts/UI/PlayerHpUI.cs"
 "Assets/Scripts/UI/PlayerShootStateUI.cs"
+"Assets/Scripts/UI/StartUI.cs"
 "Assets/Scripts/Weapon/Bullet/Pistol_Bullet.cs"
 "Assets/Scripts/Weapon/Pistol.cs"
 -langversion:9.0

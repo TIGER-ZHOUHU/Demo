@@ -11,12 +11,13 @@ public class EnemyManager : MonoBehaviour
     
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private EnemyDataCollection enemyDataCollection;
+    [SerializeField] private EnemyDataSO enemyData;
     [SerializeField] private TextMeshProUGUI scoreText;
 
+    private EnemyController enemyController;
     [Header("Enemy Count")]
     private int maxEnemyCount = 10;
-    public int currentEnemyCount;
+    public int currentEnemyCount = 0;
 
     [Header("SpawnPosition")] 
     private float spawnDistanceMax = 20f;
@@ -32,13 +33,13 @@ public class EnemyManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        enemyDataCollection.SetEnemyData();
+        enemyData.SetEnemyData();
     }
 
     private void Update()
     {
         currentTime += Time.deltaTime;
-        if (currentEnemyCount < maxEnemyCount && currentTime > spawnTimeMax && playerTransform)
+        if (currentEnemyCount <= maxEnemyCount && currentTime > spawnTimeMax && playerTransform)
         {
             SpawnerEnemy();
             currentTime = 0f;
@@ -52,8 +53,7 @@ public class EnemyManager : MonoBehaviour
         //随机选择一个敌人数据
         
         //int randomIndex = Random.Range(0, enemyDataCollection.enemyDataArray.Length);
-        EnemyDataSO enemyData = enemyDataCollection.GetOneEnemyData();
-
+        //EnemyDataSO enemyData = enemyDataCollection.GetOneEnemyData();
         Vector3 spawmPosition = GetRandomSpawnPosition();
         if (IsPositionValid(spawmPosition))
         {
@@ -102,5 +102,21 @@ public class EnemyManager : MonoBehaviour
     }
 
     #endregion
+
+    public void SetEnemyMaxCount(int level)
+    {
+        maxEnemyCount += level;
+    }
+
+    public void SetEnemyAtk(int atklevel,int health)
+    {
+        enemyData.atk += atklevel;
+        enemyData.maxHealth += health;
+    }
+    public int GetPlayerScore()
+    {
+        return playerScore;
+    }
+    
 
 }

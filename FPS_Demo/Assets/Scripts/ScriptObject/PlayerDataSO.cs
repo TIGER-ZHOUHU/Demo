@@ -17,7 +17,9 @@ public class PlayerDataSO : ScriptableObject
 
     public void Init()
     {
+        maxHealth = 5;
         currentHealth = maxHealth;
+        attack = 1;
         isDead = false;
     }
 
