@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PlayerController player;
 
-    private bool isStop = false;
+    private bool isStop = true;
     private int levelEnemyCount = 10;
     private int level = 1;
 

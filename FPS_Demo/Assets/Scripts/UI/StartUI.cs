@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StartUI : MonoBehaviour
 {
     [SerializeField] private Button startButton;
+    
 
     private void Awake()
     {

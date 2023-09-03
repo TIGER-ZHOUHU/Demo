@@ -53,7 +53,7 @@ public class Pistol_Bullet : MonoBehaviour
 
     private IEnumerator WaitForAudioEnd()
     {
-        yield return new WaitForSeconds(_audioSource.clip.length/40);
+        yield return new WaitForSeconds(_audioSource.clip.length/35);
         
         ObjectPool.instance.ReturnBullet(gameObject);
     }

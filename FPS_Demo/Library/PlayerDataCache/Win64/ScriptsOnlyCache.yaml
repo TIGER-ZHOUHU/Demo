@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - ObjectPool
     - Pistol
     - Pistol_Bullet
+    - PlayerBulletStateUI
     - PlayerController
     - PlayerDataSO
     - PlayerHpUI
@@ -24,6 +25,8 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
+    Unity.Timeline.Editor.dll:
+    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -43,6 +46,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.Text
   serializedClasses:
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
@@ -70,6 +74,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.AnimationTriggers
     - UnityEngine.UI.Button/ButtonClickedEvent
     - UnityEngine.UI.ColorBlock
+    - UnityEngine.UI.FontData
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
     - UnityEngine.UI.Navigation
     - UnityEngine.UI.SpriteState
@@ -151,6 +156,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5380}
     - Class: 114
+      Script: {instanceID: 5570}
+    - Class: 114
       Script: {instanceID: 5906}
     - Class: 114
       Script: {instanceID: 6058}
@@ -163,13 +170,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6934}
     - Class: 114
-      Script: {instanceID: 7302}
+      Script: {instanceID: 7278}
     - Class: 114
-      Script: {instanceID: 7706}
+      Script: {instanceID: 7304}
     - Class: 114
-      Script: {instanceID: 8242}
+      Script: {instanceID: 7708}
     - Class: 114
-      Script: {instanceID: 23676}
+      Script: {instanceID: 8244}
+    - Class: 114
+      Script: {instanceID: 23700}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -723,7 +732,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 7b5083eac4a338102c3ac9874387c454
+      Hash: 3a1cb327387593272a2cf7b8031d951f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -945,6 +954,12 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
+      Hash: bc6b2b57c14610836a8ee1d634536882
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StartUI
+  - hash:
+      serializedVersion: 2
       Hash: 5b53ca9ae1bb49cd21756525912112c4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -1053,11 +1068,11 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: bc6b2b57c14610836a8ee1d634536882
+      Hash: 154a810c83fcf9df356040ab72867b63
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: StartUI
+    className: PlayerBulletStateUI
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: E:/learning/unity/UNITY_GITHUB/FPS_Demo.exe
+  playerPath: E:/learning/unity/UNITY_GITHUB/FPS/FPS_Demo.exe

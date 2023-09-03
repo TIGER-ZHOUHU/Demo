@@ -12,9 +12,6 @@ public class PlayerDataSO : ScriptableObject
     public int attack;
     public bool isDead = false;
     
-
-    
-
     public void Init()
     {
         maxHealth = 5;

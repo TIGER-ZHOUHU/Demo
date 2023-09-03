@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private PlayerHpUI playerHp;
     [SerializeField] private PlayerShootStateUI playerShootStateUI;
+    [SerializeField] private PlayerBulletStateUI playerBulletStateUI;
     [SerializeField] private AudioClip playerHurt;
 
     private Animator _animator;
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour
         
         playerHp.SetHpShowUI(playerData);
         playerShootStateUI.SetPlayerShootStateUI(_shootState);
+        playerBulletStateUI.SetPlayerbulletStateUI(_bulletState);
     }
 
     void Update()
@@ -96,6 +98,7 @@ public class PlayerController : MonoBehaviour
     {
         int nextStateIndex = ((int)_bulletState + 1) % _bulletStateCount;
         _bulletState = (BulletState)nextStateIndex;
+        playerBulletStateUI.SetPlayerbulletStateUI(_bulletState);
         OnBulletStateChange?.Invoke(nextStateIndex);
     }
     private void SwitchToNextShootState()
@@ -114,6 +117,7 @@ public class PlayerController : MonoBehaviour
         _shootState = (ShootState)nextStateIndex;
         Pistol.instance.SwitchClip(nextStateIndex);
         playerShootStateUI.SetPlayerShootStateUI(_shootState);
+        
     }
     private void PlayerShoot(ShootState state)
     {
@@ -243,6 +247,7 @@ public class PlayerController : MonoBehaviour
         playerData.attack += atkLevel;
         playerData.maxHealth += maxHealthLevel;
         playerData.currentHealth = playerData.maxHealth;
+        playerHp.SetHpShowUI(playerData);
     }
     
 }
